@@ -298,7 +298,7 @@ function resetChanges(){
 header
 #check if is sudoer
 isRoot
-
+sanitizeProfileFolder
 #check if exists a last hosts path
 # fileExists
 fileExists $PATHFILE
