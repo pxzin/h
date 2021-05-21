@@ -18,12 +18,13 @@ PINK="\033[1;35m"
 CYAN="\033[1;36m"
 WHITE="\033[1;37m"
 
-PATHFILE=hostspath.conf
-PATHPROFILEFOLDER=profiles
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+PATHFILE="${SCRIPTDIR}/hostspath.conf"
+PATHPROFILEFOLDER="${SCRIPTDIR}/profiles"
+TEMPHOST="${SCRIPTDIR}/temphost.temp"
 PROFILES=()
 HOSTSPATH=""
 TEMPLATEMARK="### --- ALL LINES ABOVE ARE CREATED BY H-MANAGER.sh --- ###"
-
 
 function isRoot(){
 if [[ "$EUID" -ne 0 ]]
@@ -288,9 +289,9 @@ function saveProfile(){
 }
 
 function resetChanges(){
-    rm temphost.temp
-    head -n $TEMPLATESTART $HOSTSPATH > temphost.temp
-    cat temphost.temp > $HOSTSPATH
+    rm $TEMPHOST
+    head -n $TEMPLATESTART $HOSTSPATH > $TEMPHOST
+    cat $TEMPHOST > $HOSTSPATH
     message "All changes on $HOSTSPATH are removed"
 }
 
